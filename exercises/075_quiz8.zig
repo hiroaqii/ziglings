@@ -49,7 +49,11 @@ const Path = struct {
 //
 // Please fill in the body of this function!
 fn makePath(from: *Place, to: *Place, dist: u8) Path {
-
+    return Path{
+        .from = from,
+        .to = to,
+        .dist = dist,
+    };
 }
 
 // Using our new function, these path definitions take up considerably less
@@ -110,7 +114,7 @@ const HermitsNotebook = struct {
     }
 
     fn checkNote(self: *HermitsNotebook, note: NotebookEntry) void {
-        var existing_entry = self.getEntry(note.place);
+        const existing_entry = self.getEntry(note.place);
 
         if (existing_entry == null) {
             self.entries[self.end_of_entries] = note;
@@ -180,7 +184,7 @@ pub fn main() void {
     notebook.checkNote(working_note);
 
     while (notebook.hasNextEntry()) {
-        var place_entry = notebook.getNextEntry();
+        const place_entry = notebook.getNextEntry();
 
         for (place_entry.place.paths) |*path| {
             working_note = NotebookEntry{
